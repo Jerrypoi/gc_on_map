@@ -18,7 +18,7 @@ func main() {
 	log.Println(debug.SetGCPercent(50))
 
 	pool := sync.Pool{New: func() interface{} {
-		return new([1024]byte)
+		return make([]byte, 1024)
 	}}
 
 	go func() {
