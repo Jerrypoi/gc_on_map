@@ -22,8 +22,8 @@ func main() {
 			case <-ticker.C:
 				lock.Lock()
 				index = 0
-				for k,_ := range dataMap {
-					dataMap[k] = nil
+				for k, _ := range dataMap {
+					delete(dataMap, k)
 				}
 				dataMap = nil
 				dataMap = make(map[int64][]byte)
@@ -39,7 +39,7 @@ func main() {
 		lock.Lock()
 		dataMap[index] = make([]byte, 1024)
 		index++
-		if index % 100000 == 0 {
+		if index%100000 == 0 {
 			log.Println(index)
 		}
 		lock.Unlock()
