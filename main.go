@@ -15,12 +15,18 @@ var (
 )
 
 func main() {
+	pool := sync.Pool{New: func() interface{} {
+		return make([]byte, 1024)
+	}}
 	go func() {
 		ticker := time.NewTicker(time.Second * 20)
 		for {
 			select {
 			case <-ticker.C:
 				lock.Lock()
+				for _, v := range dataMap {
+					pool.Put(v)
+				}
 				index = 0
 				dataMap = make(map[int64][]byte)
 				log.Println("Trigger ticker")
@@ -33,9 +39,9 @@ func main() {
 
 	for {
 		lock.Lock()
-		dataMap[index] = make([]byte, 1024)
+		dataMap[index] = pool.Get().([]byte)
 		index++
-		if index % 100000 == 0 {
+		if index%100000 == 0 {
 			log.Println(index)
 		}
 		lock.Unlock()
