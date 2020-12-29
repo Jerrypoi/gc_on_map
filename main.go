@@ -15,9 +15,6 @@ var (
 )
 
 func main() {
-	log.Println(debug.SetGCPercent(50))
-
-
 	go func() {
 		ticker := time.NewTicker(time.Second * 20)
 		for {
