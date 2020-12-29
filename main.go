@@ -16,7 +16,7 @@ var (
 
 func main() {
 	go func() {
-		ticker := time.NewTicker(time.Second * 20)
+		ticker := time.NewTicker(time.Second * 5)
 		for {
 			select {
 			case <-ticker.C:
