@@ -22,6 +22,10 @@ func main() {
 			case <-ticker.C:
 				lock.Lock()
 				index = 0
+				for k,_ := range dataMap {
+					dataMap[k] = nil
+				}
+				dataMap = nil
 				dataMap = make(map[int64][]byte)
 				log.Println("Trigger ticker")
 				runtime.GC()
