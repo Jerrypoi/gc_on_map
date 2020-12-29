@@ -17,9 +17,6 @@ var (
 func main() {
 	log.Println(debug.SetGCPercent(50))
 
-	pool := sync.Pool{New: func() interface{} {
-		return make([]byte, 1024)
-	}}
 
 	go func() {
 		ticker := time.NewTicker(time.Second * 20)
@@ -39,7 +36,7 @@ func main() {
 
 	for {
 		lock.Lock()
-		dataMap[index] = pool.Get().([]byte)
+		dataMap[index] = make([]byte, 1024)
 		index++
 		lock.Unlock()
 	}
