@@ -28,6 +28,7 @@ func main() {
 			case <-ticker.C:
 				lock.Lock()
 				index = 0
+				dataMap = make(map[int64][]byte)
 				log.Println("Trigger ticker")
 				runtime.GC()
 				debug.FreeOSMemory()
