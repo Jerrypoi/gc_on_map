@@ -16,7 +16,8 @@ var (
 
 func main() {
 	pool := sync.Pool{New: func() interface{} {
-		return make([]byte, 1024)
+		data := make([]byte, 1024)
+		return &data
 	}}
 	go func() {
 		ticker := time.NewTicker(time.Second * 20)
@@ -39,7 +40,7 @@ func main() {
 
 	for {
 		lock.Lock()
-		dataMap[index] = pool.Get().([]byte)
+		dataMap[index] = *pool.Get().(*[]byte)
 		index++
 		if index%100000 == 0 {
 			log.Println(index)
