@@ -26,7 +26,7 @@ func main() {
 			case <-ticker.C:
 				lock.Lock()
 				for _, v := range dataMap {
-					pool.Put(v)
+					pool.Put(&v)
 				}
 				index = 0
 				dataMap = make(map[int64][]byte)
