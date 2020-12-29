@@ -35,6 +35,9 @@ func main() {
 		lock.Lock()
 		dataMap[index] = make([]byte, 1024)
 		index++
+		if index % 100000 == 0 {
+			log.Println(index)
+		}
 		lock.Unlock()
 	}
 }
