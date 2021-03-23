@@ -2,12 +2,10 @@ package main
 
 import (
 	log "github.com/sirupsen/logrus"
-	"sync"
 )
 
 var (
 	dataMap       = make(map[int64][]byte)
-	lock          = sync.Mutex{}
 	index   int64 = 0
 )
 
